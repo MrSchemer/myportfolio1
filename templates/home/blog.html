@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% block title %}Blog{% endblock %}
+{% load static %}
+{% block css %}
+<style>
+    .blog {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.blog h1 {
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.blog .con {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Container for Cards */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Card Styling */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 350px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+/* Card Header */
+.card-header img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Card Body */
+.card-body {
+  padding: 20px;
+}
+
+.card-body .tag {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.tag-teal {
+  background-color: #00cec9;
+}
+
+.tag-purple {
+  background-color: #6c5ce7;
+}
+
+.tag-pink {
+  background-color: #fd79a8;
+}
+
+/* Card Title */
+.card-body h4 {
+  margin: 10px 0;
+  font-size: 1.4em;
+  color: #333;
+
+  
+}
+.card-body h4 a {
+  text-decoration: none;
+  color: #333;
+}
+.card-body h4 a:hover {
+  color: #e74c3c;
+}
+
+.card-body p {
+  margin: 10px 0 20px;
+  font-size: 0.9em;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* User Section */
+.user {
+  display: flex;
+  align-items: center;
+}
+
+.user img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-info h5 {
+  margin: 0;
+  font-size: 1em;
+  color: #333;
+}
+
+.user-info small {
+  color: #888;
+}
+
+/* Hero Button */
+.hero-btn1 {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  background-color: #e74c3c;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1em;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.hero-btn1:hover {
+  background-color: #c0392b;
+}
+
+.center {
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%;
+  }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="blog">
+    <h1 style="text-align: center;">My Blog</h1>
+    <div class="con">
+      <div class="container">
+        
+        {% for post in posts %}
+
+        
+        <div class="card">
+            <div class="card-header">
+              <img
+                src="{{ post.image.url }}"
+                alt=""
+              />
+            </div>
+            <div class="card-body">
+              <span class="tag tag-pink">{{ post.catagory }}</span>
+              <h4>
+                <a href="{% url 'blogpost' post.slug %}">{{ post.title }}</a>
+                
+              </h4>
+              <p>
+                {{ post.slagan }}
+              </p>
+              <div class="user">
+                <img
+                  src="{% static 'images/me.jpeg' %}"
+                  alt=""
+                />
+                <div class="user-info">
+                  <h5>Bishal Lamichhane</h5>
+                  <small>{{ post.date }}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  
+  </section>
+
+{% endblock %}

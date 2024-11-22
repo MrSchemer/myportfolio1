@@ -1,0 +1,110 @@
+{%extends 'base.html'%}
+{%block title%}Portfolio{%endblock%}
+{%block css%}
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.portfolio-section {
+    padding: 50px 20px;
+    background: #f9f9f9;
+}
+
+.portfolio-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Responsive Grid */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.project-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.project-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.project-card .card-content {
+    padding: 15px;
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: #333;
+}
+
+.project-card p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.project-card a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.project-card a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .portfolio-section h2 {
+        font-size: 2rem;
+    }
+    .project-card h3 {
+        font-size: 1.2rem;
+    }
+}
+</style>
+{%endblock%}
+{%block content%}
+
+<section class="portfolio-section">
+    <h2>My Projects</h2>
+    <div class="portfolio-grid">
+        {% for portfolio in portfolios %}
+        <div class="project-card">
+            <img src="{{ portfolio.image.url }}" alt="Project 1">
+            <div class="card-content">
+                <h3>{{ portfolio.title }}</h3>
+                <p>{{ portfolio.slogan }}</p>
+                <a href="{{ portfolio.url }}" target="_blank">View Project</a>
+            </div>
+        </div>
+        {% endfor %}
+       
+        <!-- Add more project cards as needed -->
+    </div>
+</section>
+
+{%endblock%}

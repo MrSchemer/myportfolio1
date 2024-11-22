@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}|Bishal Lamichhane</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="{% static 'images/me.jpeg' %}" type="image/x-icon">
+  </head>
+  {% block css %}{% endblock %}
+  <style>
+    .sidebar{
+      background-color: #961818;
+    }
+    header{
+      background-color: #6a0000;
+      /* make sticky */
+      position: sticky;
+    }
+    footer {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+
+  footer a {
+    text-decoration: none;
+    color: #000;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+  </style>
+  <body>
+    <header>
+      <div class="nav-brand">Bishal Lamichhane</div>
+      <nav>
+        <ul class="nav-links">
+        <li><a href="{% url 'home' %}#home">HOME</a></li>
+        <li><a href="{% url 'home' %}#about">ABOUT</a></li>
+        <li><a href="{% url 'portfolio' %}">PORTFOLIO</a></li>
+          <li><a href="{% url 'blog' %}">BLOG</a></li>
+          <li><a href="{% url 'home' %}#contact">CONTACT</a></li>
+        </ul>
+      </nav>
+      <div id="toggle-btn" class="toggle-btn" onclick="toggleSidebar()">☰</div>
+    </header>
+
+    <!-- Sidebar for mobile view -->
+    <div id="sidebar" class="sidebar">
+      <ul>
+      <li><a href="{% url 'home' %}#home" onclick="toggleSidebar()">HOME</a></li>
+      <li><a href="{% url 'home' %}#about" onclick="toggleSidebar()">ABOUT</a></li>
+        <li><a href="{% url 'portfolio' %}" onclick="toggleSidebar()">PORTFOLIO</a></li>
+        <li><a href="{% url 'blog' %}" onclick="toggleSidebar()">BLOG</a></li>
+      <li><a href="{% url 'home' %}#contact" onclick="toggleSidebar()">CONTACT</a></li>
+      </ul>
+    </div>
+
+    <div class="content" >{% block content %}{% endblock %}</div>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script>
+      function timeAgo(dateString) {
+          const date = new Date(dateString);
+          const now = new Date();
+
+          // If date is invalid, return an error message
+          if (isNaN(date.getTime())) {
+              return "Invalid date format";
+          }
+
+          // Calculate time difference
+          const diffInMs = now - date;
+          const diffInSeconds = Math.floor(diffInMs / 1000);
+          const diffInMinutes = Math.floor(diffInSeconds / 60);
+          const diffInHours = Math.floor(diffInMinutes / 60);
+          const diffInDays = Math.floor(diffInHours / 24);
+          const diffInWeeks = Math.floor(diffInDays / 7);
+          const diffInMonths = Math.floor(diffInDays / 30); // Approximate month as 30 days
+
+          // Return formatted string based on time difference
+          if (diffInHours < 24) {
+              return diffInHours + (diffInHours === 1 ? " hour ago" : " hours ago");
+          } else if (diffInDays < 7) {
+              return diffInDays + (diffInDays === 1 ? " day ago" : " days ago");
+          } else if (diffInWeeks < 4) {
+              return diffInWeeks + (diffInWeeks === 1 ? " week ago" : " weeks ago");
+          } else {
+              return diffInMonths + (diffInMonths === 1 ? " month ago" : " months ago");
+          }
+      }
+
+      // Get all elements with the "time-ago" class
+      const timeAgoElements = document.querySelectorAll('.time-ago');
+
+      // Loop through each element and update the innerText with "time ago" format
+      timeAgoElements.forEach(element => {
+          const createdDate = element.getAttribute('data-created-date');
+          element.innerText = timeAgo(createdDate);
+      });
+  </script>
+  </body>
+<footer>
+  <p>© 2024 Bishal Lamichhane. Made with ❤️</p>
+  <p><a href="#home">Back to top</a></p>
+</footer>
+</html>

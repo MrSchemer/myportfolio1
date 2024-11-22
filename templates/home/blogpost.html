@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block title %}{{post.title}}|Blog{% endblock %} {% block css %} {% endblock %} {% block content %}
+<section class="blog">
+  <div class="container">
+    <center><div class="title" style="align-items: left; max-width: 800px; text-align: left;">
+      <h1>{{post.title}}</h1>
+      <p>{{ post.date }}</p>
+    </div></center>
+    <div class="content">
+      <center><img src="{{post.image.url}}" alt="" style="max-width: 800px; height: 50vh;"/></center>
+      {% autoescape off %}
+      <section style="font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; padding: 0; color: #333;">
+      <div style="background: white; padding: 20px; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-width: 800px;">{{ post.desc | safe }}</div>
+    </section>
+      {% endautoescape %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
